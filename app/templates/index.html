@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wind Speed & Power Prediction</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("{{ url_for('static', filename='images/windimage.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: blur(0px);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background-color: rgba(90, 166, 221, 0.405); 
+            backdrop-filter: blur(20px); 
+            padding: 30px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 12px;
+            color: #34495e;
+        }
+
+        input[type="text"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="datetime-local"]:focus {
+            border: 2px solid #3498db;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(to right, #2f80ed, #56ccf2);
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 20px;
+            color: #27ae60;
+            font-weight: bold;
+            background-color: #ecf9f1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Wind Speed & Power Prediction</h2>
+        <form action="/predict" method="post">
+
+            <label for="STATION">Station ID:</label>
+            <input type="text" name="STATION" required value="{{ form_values['STATION'] if form_values else '' }}">
+
+            <label for="LATITUDE">Latitude:</label>
+            <input type="text" name="LATITUDE" required value="{{ form_values['LATITUDE'] if form_values else '' }}">
+
+            <label for="LONGITUDE">Longitude:</label>
+            <input type="text" name="LONGITUDE" required value="{{ form_values['LONGITUDE'] if form_values else '' }}">
+
+            <label for="ELEVATION">Elevation:</label>
+            <input type="text" name="ELEVATION" required value="{{ form_values['ELEVATION'] if form_values else '' }}">
+
+            <label for="DATE">
+                Select date and time: <br>
+            </label><br>
+            <input type="datetime-local" name="DATE" id = "DATE" required value="{{ form_values['DATE'] if form_values else '' }}">
+
+            <label for="wind_direction_deg">Wind Direction (°):</label>
+            <input type="text" name="wind_direction_deg" required value="{{ form_values['wind_direction_deg'] if form_values else '' }}">
+
+            <label for="tmp_deg">Temperature (°C):</label>
+            <input type="text" name="tmp_deg" required value="{{ form_values['tmp_deg'] if form_values else '' }}">
+
+            <input type="submit" value="Predict">
+
+        </form>
+
+        {% if prediction_text %}
+            <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+    <script>
+        setTimeout(() => {
+            const msg = document.querySelector('.error');
+            if (msg) msg.style.display = 'none';
+        }, 5000); 
+    </script>
+
+</body>
+</html>
