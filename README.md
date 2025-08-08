@@ -10,34 +10,6 @@ This project presents a **Wind Energy Feasibility Dashboard** designed to foreca
 
 ---
 
-## 📁 Project Structure
-Wind-Energy-Feasibility-Dashboard/
-│
-├── app/
-│   ├── app.py                  # Flask application
-│   ├── wind_speed_model.pkl    # Trained ML model
-│   │
-│   ├── static/
-│   │   └── images/
-│   │       └── windimage.jpg   # Background image asset
-│   │
-│   └── templates/
-│       └── index.html          # Frontend HTML template
-│
-├── Notebooks/
-│   ├── preprocessing_data.ipynb   # Data cleaning and preprocessing
-│   ├── model_training.ipynb       # Model training notebook
-│   ├── wind_data.csv              # Raw wind data
-│   └── cleaned_wind_data.csv      # Processed wind data
-│
-├── venv/                       # Virtual environment (not committed)
-│
-├── requirements.txt            # Python dependencies
-├── .gitignore                  # Git ignored files
-
-
----
-
 ## 📊 Features
 
 - **Wind Speed Forecasting** using random forest regressor
